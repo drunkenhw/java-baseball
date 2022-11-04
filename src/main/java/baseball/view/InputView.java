@@ -15,16 +15,24 @@ public class InputView {
         return number;
     }
 
-    public static List<Integer> getUniqueDigits(int count) {
+    public static List<Integer> getUniqueDigits(int size) {
         String input = inputNumber();
         List<Integer> digits = Arrays.stream(input.split(""))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
         validateUniqueNumber(digits);
-        validateCount(digits, count);
+        validateCount(digits, size);
 
         return digits;
+    }
+
+    public static List<Integer> getUniqueDigitsInRange(int start, int end, int size) {
+        List<Integer> uniqueDigits = getUniqueDigits(size);
+
+        validateRange(uniqueDigits, start, end);
+
+        return uniqueDigits;
     }
 
     private static void validateNumber(String input) {
@@ -46,6 +54,15 @@ public class InputView {
     private static void validateCount(List<Integer> numbers, int count) {
         if (numbers.size() != count) {
             throw new IllegalArgumentException("입력하신 숫자는 " + numbers.size() + "개 입니다. " + count + "개를 입력해주세요");
+        }
+    }
+
+    private static void validateRange(List<Integer> numbers, int start, int end) {
+        boolean isOutOfRange = numbers.stream()
+                .anyMatch(n -> n < start || n > end);
+
+        if (isOutOfRange) {
+            throw new IllegalArgumentException("숫자는 " + start + " ~ " + end + " 사이만 가능합니다");
         }
     }
 }
