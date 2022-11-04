@@ -1,4 +1,4 @@
-package baseball;
+package baseball.model;
 
 import baseball.view.InputView;
 import java.util.List;
@@ -12,6 +12,10 @@ public class Player {
     }
 
     private List<Integer> inputNumber() {
-        return InputView.getUniqueDigitsInRange(1,9,3);
+        return getExpectNumber();
+    }
+
+    private List<Integer> getExpectNumber() {
+        return InputView.getUniqueDigitsInRange(1, 9, 3);
     }
 }
